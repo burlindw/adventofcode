@@ -1,15 +1,38 @@
+INPUT?=%.txt
+
+CFLAGS:=-MMD
+CPPFLAGS:=-Icommon
 LDLIBS:=-lm
+LDFLAGS:=
 
-2025/%: 2025/%.o main.o
-	cc -o $@ $^ $(LDLIBS)
+COMMONSRCS:=main.c
+COMMONOBJS:=$(COMMONSRCS:%=.build/common/%.o)
+COMMONDEPS:=$(COMMONSRCS:%=.build/common/%.d)
 
-2025/%.o: 2025/%.c
-	cc -c -o $@ $<
+.SECONDEXPANSION:
 
-.PHONY: 2025/%/1
-2025/%/1: 2025/%
-	$< "$<.txt" 1
+.PHONY: %/1
+%/1: .build/% $(INPUT)
+	$^ 1
 
-.PHONY: 2025/%/2
-2025/%/2: 2025/%
-	$< "$<.txt" 2
+.PHONY: %/2
+%/2: .build/% $(INPUT)
+	$^ 2
+
+.PHONY: clean
+clean: 
+	rf -rf .build
+
+.PRECIOUS: .build/%.c.o
+.build/%.c.o: %.c | $$(@D)/
+	cc $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
+
+.PRECIOUS: .build/%
+.build/%: .build/%.c.o $(COMMONOBJS) | $$(@D)/
+	cc $(LDFLAGS) -o $@ $^ $(LDLIBS)
+
+.PRECIOUS: %/
+%/:
+	mkdir -p $@
+
+-include $(COMMONDEPS)
