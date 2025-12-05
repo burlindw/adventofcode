@@ -1,0 +1,34 @@
+---
+BasedOnStyle:  LLVM
+
+AlignAfterOpenBracket: BlockIndent
+AlignArrayOfStructures: Right
+AlignOperands: AlignAfterOperator
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: Empty
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AlwaysBreakBeforeMultilineStrings: true
+BinPackArguments: false
+BinPackParameters: false
+BreakAfterAttributes: Always
+BreakBeforeBinaryOperators: None
+ContinuationIndentWidth: 2
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<(assert|complex|ctype|errno|fenv|float|inttypes|limits|locale|math|setjmp|signal|std.*|string|time|wchar|wctype).h>'
+    Priority: 1
+    SortPriority: 1
+    CaseSensitive: false
+  - Regex: '.*'
+    Priority: 2
+    SortPriority: 2
+    CaseSensitive: false
+IndentCaseLabels: true
+IndentPPDirectives: AfterHash
+InsertNewlineAtEOF: true
+LineEnding: LF
+PenaltyReturnTypeOnItsOwnLine: 500
+...
