@@ -1,6 +1,6 @@
 INPUT?=%.txt
 
-CFLAGS:=-MMD
+CFLAGS:=-MMD -g -Og
 CPPFLAGS:=-Icommon
 LDLIBS:=-lm
 LDFLAGS:=
