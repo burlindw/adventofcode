@@ -5,7 +5,7 @@ CPPFLAGS:=-Icommon
 LDLIBS:=-lm
 LDFLAGS:=
 
-COMMONSRCS:=main.c
+COMMONSRCS:=main.c aoc-array.c
 COMMONOBJS:=$(COMMONSRCS:%=.build/common/%.o)
 COMMONDEPS:=$(COMMONSRCS:%=.build/common/%.d)
 
