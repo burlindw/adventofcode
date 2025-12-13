@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static void aoc_array_ensure_capacity(aoc_array *self, size_t target) {
+void aoc_array_ensure_capacity(aoc_array *self, size_t target) {
   size_t newcap, newsize;
   uint64_t *newitems;
 
@@ -75,4 +75,24 @@ void aoc_array_sort(aoc_array *self) {
 void aoc_array_free(aoc_array *self) {
   free(self->items);
   *self = (aoc_array){0};
+}
+
+aoc_array aoc_array_copy(aoc_array const *self) {
+  aoc_array copy;
+  size_t size = self->count * sizeof(*self->items);
+
+  copy.count = self->count;
+  copy.items = malloc(size);
+  if (!copy.items) abort();
+
+  memcpy(copy.items, self->items, size);
+  copy.capacity = copy.count;
+
+  return copy;
+}
+
+aoc_array aoc_array_move(aoc_array *self) {
+  aoc_array temp = *self;
+  memset(self, 0, sizeof(*self));
+  return temp;
 }

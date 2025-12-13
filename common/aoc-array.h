@@ -10,6 +10,8 @@ typedef struct aoc_array {
   uint32_t capacity;
 } aoc_array;
 
+void aoc_array_ensure_capacity(aoc_array *self, size_t target);
+
 void aoc_array_append(aoc_array *self, uint64_t const *vals, size_t count);
 
 void aoc_array_push(aoc_array *self, uint64_t val);
@@ -21,3 +23,7 @@ bool aoc_array_top(aoc_array *self, uint64_t *val);
 void aoc_array_sort(aoc_array *self);
 
 void aoc_array_free(aoc_array *self);
+
+aoc_array aoc_array_copy(aoc_array const *self);
+
+aoc_array aoc_array_move(aoc_array *self);
